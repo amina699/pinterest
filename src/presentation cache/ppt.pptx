@@ -1,0 +1,141 @@
+Symfony Cache Component
+
+Présenté par : MARWEN ZAKRAOUI
+
+AMINA FATEH
+
+accélérez votre application le composant cache
+
+Plan
+
+Introduction
+
+La mise en cache
+
+Les avantages de la mise en cache
+
+Fonctionnement de mise en cache
+
+les données périmées en cache
+
+Suppressions les données périmées du cache
+
+Les types de données en cache
+
+Utilisation du cache Symfony
+
+Introduction
+
+La rapidité de votre site web est cruciale pour une bonne expérience utilisateur. Il est donc
+important de minimiser autant que possible la charge sur vos ressources telles que la RAM,
+l'espace disque, le processeur et le réseau.
+Pour ce faire, il existe un moyen astucieux d'utiliser votre serveur et votre réseau le plus
+efficacement possible, tout en maintenant la rapidité de votre site web : la mise en cache.
+
+Une charge minimale sur votre serveur et votre réseau
+
+Accélère les sites web lents
+
+Une expérience utilisateur optimale sur votre site web
+
+« La Mise En Cache »
+
+La mise en cache consiste à stocker temporairement des données pour pouvoir y
+accéder plus rapidement. En stockant des copies temporaires d'un site web,
+l'ordinateur n'a plus besoin de régénérer les données. Le site web devient ainsi plus
+rapide.
+
+« Les avantages de la mise en cache »
+
+L'objectif de la mise en cache est d'accélérer le chargement
+des sites et des applications web. Des temps de chargement
+rapides, ainsi qu'une expérience utilisateur optimale sont donc
+les principaux avantages.
+Étant donné que moins de ressources sont utilisées, votre site
+web sera plus stable en cas de gros pics de fréquentation.
+Un site web plus rapide contribue également à l'optimisation
+pour les moteurs de recherche de votre site web.
+
+Pourquoi la mise en cache est-elle si rapide ?
+
+Un cache consomme moins de ressources du serveur que le site web ou
+l'application qu'il tente d'accélérer.
+
+Un cache stocke le contenu dans un format rapide et extensible.
+
+La plupart des caches utilisent la RAM. Ce type de mémoire est
+particulièrement rapide, tant pour la lecture que pour l'écriture des données.
+
+En raison de leur simplicité intrinsèque, les caches contiennent très peu
+d'intelligence, ce qui a pour effet de limiter la charge.
+
+« Fonctionnement de la mise en cache »
+
+Lorsqu’un utilisateur souhaite visiter votre site web, une requête est envoyée (via Internet) à
+votre serveur afin que celui-ci affiche le contenu de la page. Cette requête doit être traitée et
+fait peser une certaine charge sur la RAM, l'espace disque, le processeur et le réseau. Cela
+donne lieu à des ralentissements dans le renvoi du contenu.
+La mise en cache réduit ce délai en stockant temporairement les données fréquemment
+consultées à un endroit différent et dans une structure simplifiée. En stockant ces données
+séparément, celles-ci ne doivent plus être demandées au serveur lors d'une nouvelle visite du
+site web. La page peut ainsi être affichée beaucoup plus rapidement.
+
+« les données périmées en cache »
+
+La copie de votre site web qui est stockée dans le cache n'est pas automatiquement mise à jour
+lorsque des modifications sont apportées à votre site web. Il est donc possible que votre
+visiteur voie des pages web périmées. Cela est particulièrement problématique si le contenu de
+votre site web est modifié souvent et rapidement.
+La copie en cache a de toute manière une durée de validité limitée. En général, vous pouvez
+vous-même définir cette durée de mise en cache. Plus la fréquence des modifications de votre
+site web est élevée, plus vous devez faire en sorte que les données restent dans le cache
+pendant une courte période. Une fois le délai de mise en cache dépassé, l'application devra à
+nouveau demander les données au serveur.
+
+« Suppression les données périmées du cache »
+
+Lorsque les données sources sont modifiées alors qu'elles se trouvent encore dans le cache,
+l'application doit elle-même supprimer les éléments en question du cache. Cela se fait
+généralement dans la logique qui est exécutée lors de l'ajout, de la suppression ou de la
+modification des données sources. L'application recherche ensuite le bon endroit dans le cache
+pour y supprimer les éléments en question.
+Cette action explicite empêche les sites web ou les applications d'afficher des sorties qui ne
+sont plus d'actualité.
+
+« Les types des données du cache »
+
+En principe, vous pouvez mettre en cache n'importe quel type de données.
+Mais pour que le cache soit efficace et pour éviter toute complication
+supplémentaire, mieux vaut utiliser le cache pour y stocker des données
+nécessitant beaucoup de ressources pour être calculées
+
+Résultats nécessitant une grande puissance de calcul
+
+Calculs nécessitant beaucoup de RAM
+
+Données externes potentiellement sensibles aux ralentissements du réseau
+
+Données nécessitant beaucoup d'espace disque
+
+Concrètement, il s'agit généralement des données suivantes :
+
+Les sorties des bases de données
+
+Les sorties de services web externes
+
+Pages web entières
+
+Données et objets internes
+
+Données provenant de fichiers sur le disque
+
+« Utilisation du Cache Symfony »
+
+Conclusion
+
+Aujourd'hui, nous avons eu un bref aperçu du composant Symfony Cache, qui vous permet
+de mettre en place la mise en cache dans vos applications PHP. Il prend également en
+charge une variété d'adaptateurs de mise en cache qui, ensemble, vous donnent la
+possibilité de choisir le type de back-end que vous souhaitez utiliser.
+
+Merci pour votre attention
