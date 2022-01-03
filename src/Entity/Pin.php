@@ -5,11 +5,15 @@ namespace App\Entity;
 use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
  * @ORM\Table(name="pins")
+
  */
+
 class Pin
+
 {
     /**
      * @ORM\Id
@@ -27,6 +31,8 @@ class Pin
      * @ORM\Column(type="text")
      */
     private $description;
+
+    
 
     public function getId(): ?int
     {
@@ -56,4 +62,6 @@ class Pin
 
         return $this;
     }
+
+    
 }
