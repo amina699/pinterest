@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=PinRepository::class)
  * @ORM\Table(name="pins")
+ * @ORM\HasLifecycleCallbacks
 
  */
 
@@ -31,6 +32,8 @@ class Pin
      * @ORM\Column(type="text")
      */
     private $description;
+
+   
 
     
 
@@ -63,5 +66,6 @@ class Pin
         return $this;
     }
 
-    
+   
+
 }
