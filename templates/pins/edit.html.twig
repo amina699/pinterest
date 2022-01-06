@@ -3,17 +3,46 @@
 {% block title 'Edit pin #' ~ pin.id %}
 
 {% block body %}
-    <h1>Edit Pin #{{ pin.id }}</h1>
+
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-lg-2">
+		</div>
+		<div class="col-lg-4">
+   <h1>Edit Pin </h1>
+ {{form_start(form) }}
+  <div class="mb-3">
+     {{ form_widget(form.title) }}
+    <!--<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">-->
+  
+  </div>
+  <div class="mb-3">
+  
+     {{ form_widget(form.description) }}
+  </div>
+ 
+  <div class="mb-3">{{form_widget(form.image)}}
+		<a class="text-muted" href="{{ asset('uploads/' ~ pin.image) }}">Voir l'image</a>
+	
+  </div>
+ 
+ 
+  <input type="submit"  class="btn btn-dark" value="Edit Pin" formnovalidate>
+
+
     
 
-    {{form_start(form) }}
+   
     
-    {{ form_widget(form) }}
+   
 
 
-    <input type="submit" value="Edit Pin" formnovalidate>
+    
 
     {{form_end(form) }}
-
+</div> 
+<div class="col-lg-4">
+		</div>
 
 {% endblock %}
+

@@ -3,21 +3,34 @@
 {% block title pin.title %}
 
 {% block body %}
+<div class="container">
+	<div class="row mt-5">
+      <a href="{{ path('app_home') }}" class="link-dark" >Go back</a>
+		<div class="col-lg-2">
+		</div>
+        <div class="col-lg-6">
     <article>
         <h1>{{ pin.title }}</h1>
+        
+        <img src="{{ asset('upload/' ~ pin.image ) }}" class="img-fluid" alt="...">
         <p>{{ pin.description }}
+        <!--<img src="" class="card-img-top" width="150px" height='150px'>-->
     </article>
 
-    <a href="{{ path('app_pins_edit', {id: pin.id}) }}">Edit</a>  |
-    <a href="#" onclick="event.preventDefault(); confirm('Are You Sure') && 
-    document.getElementById('js-pin-delete-form').submit();">Delete</a>  |
+    <a href="{{ path('app_pins_edit', {id: pin.id}) }}" class="link-dark" >Edit</a>  
+  
+    <a href="#" class="link-danger" onclick="event.preventDefault(); confirm('Are You Sure') && 
+    document.getElementById('js-pin-delete-form').submit();">Delete</a>  
 
-    <a href="{{ path('app_home') }}">Go back</a>
+  
     
     <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {id: pin.id}) }}" method="post" style="display:none;">
       
+        <input type="hidden" name="csrf_token" value="{{ csrf_token('pin_deletion_' ~ pin.id) }}">
         <input type="hidden" name="_method" value="DELETE">
 
     </form>
-
+    </div>
+</div>
+</div>
 {% endblock %}

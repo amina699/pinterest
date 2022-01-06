@@ -3,17 +3,44 @@
 {% block title 'New pin'%}
 
 {% block body %}
-    <h1>create Pin</h1>
+
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-lg-2">
+		</div>
+		<div class="col-lg-4">
+  <h1>create Pin</h1>
+ {{form_start(form) }}
+  <div class="mb-3">
+     {{ form_widget(form.title) }}
+    <!--<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">-->
+  
+  </div>
+  <div class="mb-3">
+  
+     {{ form_widget(form.description) }}
+  </div>
+  <div class="mb-3">
+  
+     {{ form_widget(form.image) }}
+  </div>
+ 
+ 
+  <input type="submit" class="btn btn-dark" value="Create Pin" formnovalidate>
+
+
     
 
-    {{form_start(form) }}
+   
     
-    {{ form_widget(form) }}
+   
 
 
-    <input type="submit" value="Create Pin" formnovalidate>
+    
 
     {{form_end(form) }}
-
+</div> 
+<div class="col-lg-4">
+		</div>
 
 {% endblock %}

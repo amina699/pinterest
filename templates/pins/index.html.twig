@@ -3,15 +3,28 @@
 {% block title 'Find all the best pins on earth!'%}
 
 {% block body %}
-    <h1>{{ pluralize(pins|length, 'Pin') }}</h1>
+<div class="jumbotron">
+		<div class="container">
+        <h1>{{ pluralize(pins|length, 'Pin') }}</h1>
+    <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-2 gx-2 mt-5 ">
+        
+
     {% for pin in pins %}
-        <article>
-            <h2><a href="/pins/{{ pin.id }}">{{ pin.title }}</a></h2>
-            <p>{{ pin.description }}</p>
-        </article>
-    {% endfor %}
+			
+	<div class="col">
+		<div class="card  p-1">
+            <img src="{{ asset('upload/' ~ pin.image ) }}" class="card-img-top" width="150px" height='150px'>
+             <div class="card-body">
+                 <h2 class="card-title "><a href="/pins/{{ pin.id }}"  class="link-secondary">{{ pin.title }}</a></h2>
+			</div>
+         </div>
+         </div>
+                            {% endfor %}
+     
+      
 
 
+</div></div>
 
 
 {% endblock %}

@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -56,7 +59,7 @@ else
 /**
      * @Route("/pins/create", name="app_pins_create", methods={"GET", "POST"})
      */
-    public function create(Request $request, EntityManagerInterface $em ): Response
+    public function create(Request $request, EntityManagerInterface $em , SluggerInterface $slugger ): Response
     {
 
         $pin = new Pin;
@@ -67,9 +70,33 @@ else
         
         if($form->isSubmitted() && $form->isValid()){
 
+            $brochureFile = $form->get('image')->getData();
+
+            if ($brochureFile) {
+                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $brochureFile->move(
+                        $this->getParameter('brochures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
             
+                $pin->setImage($newFilename);
+                $pin->setTitle($form->get('title')->getData());
+                $pin->setDescription($form->get('description')->getData());
+            }
             $em->persist($pin);
             $em->flush();
+
+            $this->addFlash('success', 'Pin successfully created!');
 
             return $this->redirectToRoute('app_home');
 
@@ -80,7 +107,7 @@ else
         ]);
     }
     /**
-     * @Route("/pins/{id<[0-9]+>}", name="app_pins_show", methods="GET")
+     * @Route("/pins/{id}", name="app_pins_show", methods="GET")
      */
     
 
@@ -88,16 +115,16 @@ else
 
     {
 
-        return $this->render('pins/show.html.twig', compact('pin'));
+        return $this->render('pins/show.html.twig',[ 'pin'=>$pin]);
     }
      /**
-     * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods={"GET", "PUT"})
+     * @Route("/pins/{id}/edit", name="app_pins_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Pin $pin, EntityManagerInterface $em): Response
     {
        
         $form = $this->createForm(PinType::class, $pin, [
-            'method' => 'put'
+            'method' => 'POST'
         ]);
 
 
@@ -107,6 +134,8 @@ else
             
             $em->persist($pin);
             $em->flush();
+
+            $this->addFlash('success', 'Pin successfully updated!');
 
             return $this->redirectToRoute('app_home');
 
@@ -120,13 +149,18 @@ else
     }
 
  /**
-     * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete", methods={"POST"})
+     * @Route("/pins/{id}/delete", name="app_pins_delete", methods={"POST"})
      */
-    public function delete(Pin $pin, EntityManagerInterface $em): Response
-    {
+    public function delete(Request $request, Pin $pin, EntityManagerInterface $em): Response   {
+
+        if ($this->isCsrfTokenValid('pin_deletion_' . $pin->getId(),  $request->request->get('csrf_token'))){
+
         $em->remove($pin);
         $em->flush();
 
+        $this->addFlash('success', 'Pin successfully Deleted!');
+
+        }
         return $this->redirectToRoute('app_home');
 
     }
